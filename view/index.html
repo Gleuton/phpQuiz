@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type">
+    <title>Quiz PHP</title>
+    <link rel="shortcut icon" href="https://gleuton.site/img/terminal-icon.ico">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-size: 18px;
+        }
+
+        h2.h2, h2 span {
+            font-weight: bold;
+            font-size: 26px;
+        }
+
+        h2.description {
+            color: #ffffff;
+            font-size: 16px;
+        }
+
+        header {
+            color: #ffffff;
+            background-color: #223141;
+        }
+
+        header .box_logo {
+            margin: 15px;
+        }
+
+        header .logo {
+            display: block;
+            margin: 0 auto;
+            background-color: #223141;
+            width: 155px;
+            height: 155px;
+            border-radius: 80px;
+            border: solid #ffffff 3px;
+        }
+
+        section .container-box {
+            margin: 1000px;
+        }
+
+        span.glyphicon {
+            font-size: 20px;
+        }
+
+        span.glyphicon.glyphicon-edit {
+            color: #d58512;
+        }
+
+        span.glyphicon.glyphicon-ok {
+            color: #3c763d;
+        }
+
+        span.glyphicon.glyphicon-remove {
+            color: #ac2925;
+        }
+
+        .has-error {
+            color: #ac2925;
+        }
+
+        .boxQuestion {
+            font-size: 20px;
+        }
+    </style>
+
+</head>
+<body>
+<header>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2">
+                <div class="box_logo">
+                    <a href="/">
+                        <img src="/img/phpLogo.jpg"
+                             alt="Logo PHP"
+                             class="logo">
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-10">
+                <div class="box_text">
+                    <h1>Quiz</h1>
+                    <h2 class="description">
+                        PHP Developer
+                    </h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<section>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2 class="h2">Feedback:</h2>
+                        <ul class="list-group" id="listQ">
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-10">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2 class="h2">Question - <span id="number">0</span>:</h2>
+                        <div class="boxQuestion" id="question"></div>
+                        <div id="code"></div>
+                        <div id="options"></div>
+                        <div class="has-error"></div>
+                        <div class="row">
+                            <div class="col-md-11">
+                            </div>
+                            <div class="col-md-1">
+                                <button class="btn btn-success" id="next" value="">Next</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+<link href="/css/bootstrap.min.css" rel="stylesheet">
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/getListQuestion.js"></script>
+<script type="text/javascript" src="/js/getQuestion.js"></script>
+<script type="text/javascript" src="/js/getOpt.js"></script>
+<script type="text/javascript" src="/js/fillList.js"></script>
+<script type="text/javascript" src="/js/validate.js"></script>
+<script type="text/javascript">
+  function questionBox (code, index) {
+    getQuestion(code.code, index + 1)
+    getOptions(code.code)
+  }
+
+  getList().then(data => {
+    fillList($('ul#listQ'), data)
+    let i = 0
+    questionBox(data[i], i)
+
+    $('#next').click(function () {
+      $(this).attr('disabled', true)
+      if (validate(data[i].code) > 0 && i < data.length - 1) {
+        i++
+        questionBox(data[i], i)
+        $(this).attr('disabled', false)
+      }
+    })
+  })
+
+
+</script>

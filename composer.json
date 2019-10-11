@@ -1,0 +1,20 @@
+{
+    "name": "gleuton/quiz",
+    "description": "php",
+    "authors": [
+        {
+            "name": "Gleuton Dutra",
+            "email": "gleuton.dutra@gmail.com"
+        }
+    ],
+
+    "autoload": {
+        "psr-4": {
+            "Quiz\\": "src/"
+        }
+    },
+  "require": {
+    "ext-json": "*",
+    "ext-mysqli": "*"
+  }
+}
